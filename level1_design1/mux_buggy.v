@@ -23,7 +23,7 @@ module mux(sel,inp0, inp1, inp2, inp3, inp4, inp5, inp6, inp7, inp8,
 
   begin
     case(sel)
-      5'b00000: out = inp0;  
+      5'b00000: out = 2'bxx;  
       5'b00001: out = inp1;  
       5'b00010: out = inp2;  
       5'b00011: out = inp3;  
