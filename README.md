@@ -11,7 +11,7 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 ## Verification Environment
 
-The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (mux module here) which takes 5 bit selection line and 2 bit 32 input lines with 2 bit
+The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explained. The test drives inputs to the Design Under Test (mux module here) which takes 5 bit selection line and 2 bit 32 input lines with 2 bit output line.
 
 The values are assigned to the input port using 
 ```
@@ -23,7 +23,7 @@ The values are assigned to the input port using
     dut.sel.value = S
 ```
 
-The assert statement is used for comparing the adder's outut to the expected value.
+The assert statement is used for comparing the mux's outut to the expected value.
 
 The following error is seen:
 ```
@@ -56,7 +56,7 @@ Updating the design and re-running the test makes the test pass.
 
 ![WhatsApp Image 2022-08-01 at 5 50 00 PM](https://user-images.githubusercontent.com/92382856/182146402-1d54b199-0f43-4426-90f2-6be73941287b.jpeg)
 
-The updated design is checked in as adder_fix.v
+The updated design is checked in as mux.v
 
 ## Verification Strategy
 
