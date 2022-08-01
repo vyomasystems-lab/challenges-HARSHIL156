@@ -4,7 +4,7 @@ TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/ATM_FSM.v               # provide your design path
+VERILOG_SOURCES = $(PWD)/ATM_FSM_buggy.v               # provide your design path
 
 TOPLEVEL :=ATM           # design file
 MODULE   :=test_ATM_FSM     # test file

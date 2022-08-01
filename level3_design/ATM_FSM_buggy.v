@@ -34,7 +34,7 @@ module authentication(
 
   //initializing the database with arbitrary accounts
   initial begin
-    acc_database[0] = 12'd2749; pin_database[0] = 4'b0000;
+    acc_database[0] = 12'b1; pin_database[0] = 4'b0000;
     acc_database[1] = 12'd2175; pin_database[1] = 4'b0001;
     acc_database[2] = 12'd2429; pin_database[2] = 4'b0010;
     acc_database[3] = 12'd2125; pin_database[3] = 4'b0011;
@@ -45,6 +45,7 @@ module authentication(
     acc_database[8] = 12'd2299; pin_database[8] = 4'b1000;
     acc_database[9] = 12'd2689; pin_database[9] = 4'b1001;
     end
+  
 
   always @ (deAuth) begin
     if(deAuth == `true)
@@ -124,7 +125,10 @@ module ATM(
 
   authentication authAccNumberModule(accNumber, pin, `AUTHENTICATE, deAuth, isAuthenticated, accIndex);
   authentication findAccNumberModule(destinationAcc, 0, `FIND, deAuth, wasFound, destinationAccIndex);
-
+  always @(error) begin
+      if(error == 1)
+        $display("Error!, action causes an invalid operation.");
+  end  
   //main block of module with asynchronous exit
   always @(posedge clk or isAuthenticated or menuOption or exit) begin
     
@@ -215,8 +219,5 @@ module ATM(
       end
 
     endcase 
-		
-
-  end
-
+	end
 endmodule
