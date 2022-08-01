@@ -124,11 +124,12 @@ module ATM(
   reg deAuth = `false;
 
   authentication authAccNumberModule(accNumber, pin, `AUTHENTICATE, deAuth, isAuthenticated, accIndex);
-  authentication findAccNumberModule(destinationAcc, 0, `FIND, deAuth, wasFound, destinationAccIndex);
+  authentication findAccNumberModule(destinationAcc, 0, `FIND, deAuth, wasFound, destinationAccIndex); 
   always @(error) begin
-      if(error == 1)
+      if(error == `true)
         $display("Error!, action causes an invalid operation.");
-  end  
+   end
+  
   //main block of module with asynchronous exit
   always @(posedge clk or isAuthenticated or menuOption or exit) begin
     

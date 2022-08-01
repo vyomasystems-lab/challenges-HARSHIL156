@@ -14,10 +14,8 @@ async def test_seq_bug1(dut):
 
     clock = Clock(dut.clk, 10, units="us")  # Create a 10us period clock on port clk
     cocotb.start_soon(clock.start())        # Start the clock
-    await FallingEdge(dut.clk) 
-    dut.accNumber.value=0b000000000001
+     
+    dut.accNumber.value=0b000000000000
     dut.pin.value =0b0000
-    await FallingEdge(dut.clk) 
-
-
-    assert dut.error.value == 1, "Account number or password is wrong "
+    await FallingEdge(dut.clk)
+    assert dut.isAuthenticated.value == 1, "Account number or password is wrong "
