@@ -176,7 +176,7 @@ For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in t
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://i.imgur.com/5XbL1ZH.png)
+![WhatsApp Image 2022-08-01 at 5 38 30 PM](https://user-images.githubusercontent.com/92382856/182148389-19738ea9-ba82-4615-bd27-f17faf1c53ee.jpeg)
 
 The updated design is checked in as adder_fix.v
 
