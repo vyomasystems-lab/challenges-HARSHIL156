@@ -69,7 +69,7 @@ The verification environment is setup using [Vyoma's UpTickPro](https://vyomasys
 
 *Make sure to include the Gitpod id in the screenshot*
 
-![](https://i.imgur.com/miWGA1o.png)
+![WhatsApp Image 2022-08-01 at 11 44 45 AM](https://user-images.githubusercontent.com/92382856/182146844-79bef112-f41d-4edb-a632-6c4d0d4ff4e1.jpeg)
 
 ## Verification Environment
 
@@ -77,16 +77,29 @@ The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explaine
 
 The values are assigned to the input port using 
 ```
-dut.a.value = 7
-dut.b.value = 5
+    # reset
+    dut.reset.value = 1
+    await FallingEdge(dut.clk)
+    dut.reset.value = 0
+    await FallingEdge(dut.clk) 
+    dut.inp_bit.value=1
+    await FallingEdge(dut.clk) 
+    dut.inp_bit.value=0
+    await FallingEdge(dut.clk) 
+    dut.inp_bit.value=1
+    await FallingEdge(dut.clk) 
+    dut.inp_bit.value=1
+    await FallingEdge(dut.clk) 
+    
+    assert dut.seq_seen.value == 1, "FSM sequence for {Current_state}(current state)== {SEQ1011}(detect_seq_state) but  {Seq_seen}(seq_seen) != 1".format( Current_state=int(dut.current_state.value),SEQ1011=dut.SEQ_1011.value,Seq_seen=dut.seq_seen.value)
 ```
 
 The assert statement is used for comparing the adder's outut to the expected value.
 
 The following error is seen:
 ```
-assert dut.sum.value == A+B, "Adder result is incorrect: {A} + {B} != {SUM}, expected value={EXP}".format(
-                     AssertionError: Adder result is incorrect: 7 + 5 != 2, expected value=12
+assert dut.seq_seen.value == 1, "FSM sequence for {Current_state}(current state)== {SEQ1011}(detect_seq_state) but  {Seq_seen}(seq_seen) != 1".format( Current_state=int(dut.current_state.value),SEQ1011=dut.SEQ_1011.value,Seq_seen=dut.seq_seen.value)
+                     AssertionError: FSM sequence for 4(current state)== 4(detect_seq_state) but  0(seq_seen) != 1
 ```
 ## Test Scenario **(Important)**
 - Test Inputs: a=7 b=5
@@ -99,17 +112,15 @@ Output mismatches for the above inputs proving that there is a design bug
 Based on the above test input and analysing the design, we see the following
 
 ```
- always @(a or b) 
-  begin
-    sum = a - b;             ====> BUG
-  end
+  assign seq_seen = current_state == SEQ_1011 ? 0 : 0;
+
 ```
 For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
 
-![](https://i.imgur.com/5XbL1ZH.png)
+![WhatsApp Image 2022-08-01 at 5 58 08 PM](https://user-images.githubusercontent.com/92382856/182147778-dc24016c-3eac-48d8-bc04-9d9c066d7587.jpeg)
 
 The updated design is checked in as adder_fix.v
 
@@ -118,13 +129,13 @@ The updated design is checked in as adder_fix.v
 ## Is the verification complete ?
 
 
-# Level-1 Design-1 MUX Design Verification
+# Level-3 ATM-FSM Design Verification
 
 The verification environment is setup using [Vyoma's UpTickPro](https://vyomasystems.com) provided for the hackathon.
 
 *Make sure to include the Gitpod id in the screenshot*
 
-![](https://i.imgur.com/miWGA1o.png)
+![WhatsApp Image 2022-08-01 at 11 44 45 AM](https://user-images.githubusercontent.com/92382856/182146889-bf01ed08-6778-479b-911f-5cac3c413800.jpeg)
 
 ## Verification Environment
 
@@ -132,16 +143,18 @@ The [CoCoTb](https://www.cocotb.org/) based Python test is developed as explaine
 
 The values are assigned to the input port using 
 ```
-dut.a.value = 7
-dut.b.value = 5
+  dut.accNumber.value=0b000000000000
+    dut.pin.value =0b0000
+    await FallingEdge(dut.clk)
+    assert dut.isAuthenticated.value == 1, "Account number or password is wrong "
 ```
 
 The assert statement is used for comparing the adder's outut to the expected value.
 
 The following error is seen:
 ```
-assert dut.sum.value == A+B, "Adder result is incorrect: {A} + {B} != {SUM}, expected value={EXP}".format(
-                     AssertionError: Adder result is incorrect: 7 + 5 != 2, expected value=12
+assert dut.isAuthenticated.value == 1, "Account number or password is wrong "
+                     AssertionError: Account number or password is wrong 
 ```
 ## Test Scenario **(Important)**
 - Test Inputs: a=7 b=5
@@ -154,10 +167,9 @@ Output mismatches for the above inputs proving that there is a design bug
 Based on the above test input and analysing the design, we see the following
 
 ```
- always @(a or b) 
-  begin
-    sum = a - b;             ====> BUG
-  end
+  //initializing the database with arbitrary accounts
+  initial begin
+    acc_database[0] = 12'b1; pin_database[0] = 4'b0000; bug 
 ```
 For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
 
