@@ -125,12 +125,13 @@ Updating the design and re-running the test makes the test pass.
 
 ![WhatsApp Image 2022-08-01 at 5 58 08 PM](https://user-images.githubusercontent.com/92382856/182147778-dc24016c-3eac-48d8-bc04-9d9c066d7587.jpeg)
 
-The updated design is checked in as seq_detector_1011.v
+The updated design is checked in as seq_detect_1011.v
 
 ## Verification Strategy
+To identify sequence 1011 arrived there is a seq_seen bit. It always get high when it receives correct sequence. But in seq_detect_1011_buggy.v file there is a bug. In that code seq_seen is by default giving 0 output. To verify this the strategy is to manually transfer bits every clock and check seq_seen bit value.
 
 ## Is the verification complete ?
-
+Yes it is completed and gives accurate result.
 
 # Level-3 ATM-FSM Design Verification
 
@@ -152,7 +153,7 @@ The values are assigned to the input port using
     assert dut.isAuthenticated.value == 1, "Account number or password is wrong "
 ```
 
-The assert statement is used for comparing the adder's outut to the expected value.
+The assert statement is used for comparing the atm-fsm's output to the expected value.
 
 The following error is seen:
 ```
@@ -181,9 +182,10 @@ Updating the design and re-running the test makes the test pass.
 
 ![WhatsApp Image 2022-08-01 at 5 38 30 PM](https://user-images.githubusercontent.com/92382856/182148389-19738ea9-ba82-4615-bd27-f17faf1c53ee.jpeg)
 
-The updated design is checked in as adder_fix.v
+The updated design is checked in as ATM-FSM.v
 
 ## Verification Strategy
+This atm fsm requires a database system in which account details and their respective pin numbers are stored. But by mistake there is wrong information in account number that is causing right user to not login. So the verification strategy is to manually try to login and check to see whether i will able to login or not.
 
 ## Is the verification complete ?
-
+Yes the verification is completed and i have find exact error.
