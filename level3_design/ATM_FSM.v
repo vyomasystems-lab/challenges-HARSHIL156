@@ -34,7 +34,7 @@ module authentication(
 
   //initializing the database with arbitrary accounts
   initial begin
-    acc_database[0] = 12'd2749; pin_database[0] = 4'b0000;
+    acc_database[0] = 12'b1; pin_database[0] = 4'b0000;
     acc_database[1] = 12'd2175; pin_database[1] = 4'b0001;
     acc_database[2] = 12'd2429; pin_database[2] = 4'b0010;
     acc_database[3] = 12'd2125; pin_database[3] = 4'b0011;
