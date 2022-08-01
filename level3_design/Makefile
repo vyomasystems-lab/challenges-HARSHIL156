@@ -4,10 +4,10 @@ TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
-VERILOG_SOURCES = $(PWD)/               # provide your design path
+VERILOG_SOURCES = $(PWD)/ATM_FSM.v               # provide your design path
 
-TOPLEVEL :=           # design file
-MODULE   :=     # test file
+TOPLEVEL :=ATM           # design file
+MODULE   :=test_ATM_FSM     # test file
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
