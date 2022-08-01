@@ -60,7 +60,10 @@ The updated design is checked in as mux.v
 
 ## Verification Strategy
 
+In a mux_buggy.v file i have assigned 2'b00 to inp0. By this everytime when selectionline is 0 then output will be by default 2'b00. So for verification i have assigned 1 to inp0 and sel to 0 to check output value it should be 1(out = inp0) but not in buggy mux case.
+
 ## Is the verification complete ?
+Yes verification is completed with exact bug pointed.
 
 
 # Level-1 Design-2 FSM SEQUENCE DETECTOR Design Verification
@@ -122,7 +125,7 @@ Updating the design and re-running the test makes the test pass.
 
 ![WhatsApp Image 2022-08-01 at 5 58 08 PM](https://user-images.githubusercontent.com/92382856/182147778-dc24016c-3eac-48d8-bc04-9d9c066d7587.jpeg)
 
-The updated design is checked in as adder_fix.v
+The updated design is checked in as seq_detector_1011.v
 
 ## Verification Strategy
 
