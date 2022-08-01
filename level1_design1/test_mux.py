@@ -19,4 +19,4 @@ async def mux_basic_test(dut):
 
     await Timer(2, units='ns')
     
-    assert dut.out.value == A, "Mux result is incorrect for input {A} and sel {S}. because {OUT}!={out}".format( A=int(dut.inp0.value), S=int(dut.sel.value),OUT=int(dut.out.value), out=int(dut.inp0.value))
+    assert dut.out.value == A, "Mux result is incorrect for selected {S}(selectionline) and {A}(input0). because given (input0){OUT}!=(recieved o/p){out}".format( A=int(dut.inp0.value), S=int(dut.sel.value),OUT=int(dut.out.value), out=int(dut.inp0.value))
