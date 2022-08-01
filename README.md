@@ -31,9 +31,9 @@ assert dut.out.value == A, "Mux result is incorrect for selected {S}(selectionli
                      AssertionError: Mux result is incorrect for selected 0(selectionline) and 1(input0). because given (input0)0!=(recieved o/p)1
 ```
 ## Test Scenario **(Important)**
-- Test Inputs: a=7 b=5
-- Expected Output: sum=12
-- Observed Output in the DUT dut.sum=2
+- Test Inputs: inp0=1 sel=0
+- Expected Output: out=1
+- Observed Output in the DUT out=0
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -49,7 +49,7 @@ begin
     endcase
  end
 ```
-For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
+For the mux design, the logic should be ``out = inp0`` instead of ``out = 2'b00`` as in the design code.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
@@ -102,9 +102,9 @@ assert dut.seq_seen.value == 1, "FSM sequence for {Current_state}(current state)
                      AssertionError: FSM sequence for 4(current state)== 4(detect_seq_state) but  0(seq_seen) != 1
 ```
 ## Test Scenario **(Important)**
-- Test Inputs: a=7 b=5
-- Expected Output: sum=12
-- Observed Output in the DUT dut.sum=2
+- Test Inputs: inp_bit = 1011 // after every clock one bit is assigned
+- Expected Output: seq_seen = 1
+- Observed Output in the DUT seq_seen=0
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -115,7 +115,7 @@ Based on the above test input and analysing the design, we see the following
   assign seq_seen = current_state == SEQ_1011 ? 0 : 0;
 
 ```
-For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
+For this fsm design, the logic should be ``assign seq_seen = current_state == SEQ_1011 ? 1 : 0;`` instead of `` assign seq_seen = current_state == SEQ_1011 ? 0 : 0; `` as in the design code.
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
@@ -157,9 +157,9 @@ assert dut.isAuthenticated.value == 1, "Account number or password is wrong "
                      AssertionError: Account number or password is wrong 
 ```
 ## Test Scenario **(Important)**
-- Test Inputs: a=7 b=5
-- Expected Output: sum=12
-- Observed Output in the DUT dut.sum=2
+- Test Inputs: accNumber = 0b000000000000
+- Expected Output: isAuthenticated = 1
+- Observed Output in the DUT isAuthenticated = 0
 
 Output mismatches for the above inputs proving that there is a design bug
 
@@ -171,7 +171,7 @@ Based on the above test input and analysing the design, we see the following
   initial begin
     acc_database[0] = 12'b1; pin_database[0] = 4'b0000; bug 
 ```
-For the adder design, the logic should be ``a + b`` instead of ``a - b`` as in the design code.
+For this atm fsm design, the account database has wrong account details in that
 
 ## Design Fix
 Updating the design and re-running the test makes the test pass.
